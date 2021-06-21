@@ -64,6 +64,7 @@
                                 <th>Email</th>
                                 <th>Dirección</th>
                                 <th>Teléfono</th>
+                                <th>Rol</th>
                                 <th>Editar</th>
                                 <th>Eliminar</th>
                             </tr>
@@ -75,12 +76,18 @@
                                 </tr>
                             @else
                             @foreach ($users as $user)
+                            
                                 <tr>
                                     <td>{{$user->id}}</td>
                                     <td>{{$user->name}}</td>
                                     <td>{{$user->email}}</td>
                                     <td>{{$user->address}}</td>
                                     <td>{{$user->phone}}</td>
+                                    @if ($user->role_id == 1)
+                                        <td>Admin</td>
+                                    @else
+                                        <td>Cliente</td>
+                                    @endif
                                     <td>
                                         <div class="form-row justify-content-center">
                                             <form action="{{route('user.edit',$user->id)}}" method="post">
@@ -100,6 +107,7 @@
                                         </div>
                                     </td>
                                 </tr>
+                                
                             @endforeach
                             @endif
                         </tbody>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Support\Facades\DB; 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -38,13 +39,14 @@ class UserController extends Controller
         }
  
         $users=DB::table('users')
-            ->select('id','name','email','address','phone')
+            ->select('id','name','email','address','phone','role_id')
             ->where('name','LIKE','%'.$text.'%')
             ->orWhere('email','LIKE','%'.$text.'%')
             ->orWhere('address','LIKE','%'.$text.'%')
             ->orWhere('phone','LIKE','%'.$text.'%')
             ->orderBy($filter,'asc')
             ->paginate(5);
+            
         return view('user.index',compact('users','text'));
     }
 
@@ -64,6 +66,7 @@ class UserController extends Controller
             'password' => 'required|between:8,255|confirmed',
             'address' => 'required|string|max:255',
             'phone' => 'required|integer|min:600000000|max:999999999',
+            'role_id' => 'required|integer|min:2|max:2'
             
         ]);
 
@@ -71,9 +74,9 @@ class UserController extends Controller
             return redirect()->back()->withInput()->withErrors($v->errors());
         }
 
-        $user->create($request->all());
-        $users=User::all();
-        return redirect()->route('user.index');
+        $user=User::create($request->all());
+
+        return redirect('user/create')->with('status', 'Usuario registrado correctamente');
     }
 
     public function edit($id)
@@ -103,11 +106,63 @@ class UserController extends Controller
             $user->email=$request->email;
             $user->address=$request->address;
             $user->phone=$request->phone;
+            $user->role_id=$request->role_id;
             $user->save();
 
-            /* $input = $request->all();
-            $user->fill($input)->save();
-            return back(); */
+        } else{
+
+            $v = \Validator::make($request->all(), [
+
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|max:255|',
+                'password' => 'required|between:8,255|confirmed',
+                'address' => 'required|string|max:255',
+                'phone' => 'required|integer|min:600000000|max:999999999',
+                
+            ]);
+
+            if ($v->fails()){
+                return redirect()->back()->withInput()->withErrors($v->errors());
+            }
+
+            $user->name=$request->name;
+            $user->email=$request->email;
+            $user->password=Hash::make($request->password);
+            $user->address=$request->address;
+            $user->phone=$request->phone;
+            $user->role_id=$request->role_id;
+            $user->save();
+    }
+
+            
+
+            return redirect()->route('user.edit',  $user->id)->with(['status','Registro actualizado con éxito']);
+        
+    }
+
+
+    public function updateAuth(Request $request)
+    {
+        $user=User::find(Auth::user()->id);
+        if ($request->password == '') {
+            $v = \Validator::make($request->all(), [
+
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|max:255|',
+                'address' => 'required|string|max:255',
+                'phone' => 'required|integer|min:600000000|max:999999999',
+                
+            ]);
+
+            if ($v->fails()){
+                return redirect()->back()->withInput()->withErrors($v->errors());
+            }
+
+            $user->name=$request->name;
+            $user->email=$request->email;
+            $user->address=$request->address;
+            $user->phone=$request->phone;
+            $user->save();
 
         } else{
 
@@ -131,77 +186,17 @@ class UserController extends Controller
             $user->address=$request->address;
             $user->phone=$request->phone;
             $user->save();
-
-
-            /* if($request->input('name')!=''){
-                $user->name=$request->input('name');
-            }
-            if($request->input('email')!=''){
-                $user->email=$request->input('email');
-            }
-            if(($request->input('password')!='') && (strlen(trim($request->input('password')>=8)))){
-                $user->password=Hash::make($request->input('password'));
-            }
-            if($request->input('address')!=''){
-                $user->address=$request->input('address');
-            }
-            if($request->input('phone')!=''){
-                $user->phone=$request->input('phone');
-            }
-            if(($user->name!='') && ($user->email!='') && ($user->address!='') && ($user->phone!='')){
-                $user->save();
-        } */
     }
-
-            /* Session::flash('message','Registro ' . $id . ' actualizado.');
-
-            return Redirect::to('/user'); */
-
-            return redirect()->route('user.index')->with(['success','Registro actualizado con éxito']);
-
-            /* return redirect()->route('user.index')->with(['status' => 'Registro actualizado con éxito']); */
-        
-            /* Session::flash('message','El registro' . $id . ' no se ha podido actualizar');
-
-            return Redirect::to('/user'); */
 
             
 
-            /* return redirect()->route('user.index')->with(['status' => 'El registro no se ha podido actualizar']); */
+            return redirect('/configuracion')->with(['status','Registro actualizado con éxito']);
         
     }
-
-
-    public function updateUser(Request $request)
-    {
-        $user = User::find(Auth::user()->id);
-
-        if($request->input('name')!=''){
-            $user->name=$request->input('name');
-        }
-        if($request->input('email')!=''){
-            $user->email=$request->input('email');
-        }
-        if(($request->input('password')!='') && (strlen(trim($request->input('password')>=8)))){
-            $user->password=Hash::make($request->input('password'));
-        }
-        if($request->input('address')!=''){
-            $user->address=$request->input('address');
-        }
-        if($request->input('phone')!=''){
-            $user->phone=$request->input('phone');
-        }
-        if(($user->name!='') && ($user->email!='') && ($user->address!='') && ($user->phone!='')){
-            $user->save();
-
-            return redirect()->route('home')->with(['success','Registro actualizado con éxito']);
-        }else{
-            return redirect()->route('home')->with(['error','El registro no se ha podido actualizar']);
-        }
        
 
         
-    }
+    
 
     public function destroy($id)
     {

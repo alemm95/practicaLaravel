@@ -9,7 +9,14 @@
                   <div>{{ $error }}</div>
               @endforeach
             </div>
-        @endif </br>
+        @endif
+        @if(session('status'))
+            <div class="alert alert-success" role="alert">
+                <div>
+                    {{ session('status') }}
+                </div>
+            </div>
+        @endif  </br>
         <div class="row">
             <div class="col-xl-12">
                 <form action="{{route('user.update',$user->id)}}" method="post">
@@ -39,6 +46,26 @@
                         <label for="phone">Phone</label>
                         <input type="text" class="form-control" name="phone" value="{{$user->phone}}">
                     </div>
+                    @if($user->role_id == 1)
+                        <div class="form-check">
+                            <input  type="radio" class="form-check-input" name="role_id" value="1" id="1" checked>
+                            <label for="1">Admin</label>
+                        </div>
+                        <div class="form-check">
+                            <input  type="radio" class="form-check-input" name="role_id" value="2" id="2">
+                            <label for="2">Cliente</label>
+                        </div>
+                    @else
+                        <div class="form-check">
+                            <input  type="radio" class="form-check-input" name="role_id" value="1" id="1">
+                            <label for="1">Admin</label>
+                        </div>
+                        <div class="form-check">
+                            <input  type="radio" class="form-check-input" name="role_id" value="2" id="2" checked>
+                            <label for="2">Cliente</label>
+                        </div>
+                    @endif
+
                     <div class="form-group">
                     <input type="submit" class="btn btn-success" value="Guardar">
                     <input type="reset" class="btn btn-danger" value="Restablecer datos">

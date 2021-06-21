@@ -34,12 +34,12 @@
 
                 @if (Route::has('login'))
                     @auth
-                        <a href="{{ url('/home') }}" class="rounded-full py-3 px-4 uppercase text-xs font-bold cursor-pointer tracking-wider text-pink-500 border-pink-500 border-2 hover:bg-pink-500 hover:text-white transition ease-out duration-700">Home</a>
+                        <a href="{{ url('/home') }}" class="rounded-full py-3 px-4 uppercase text-xs font-bold cursor-pointer tracking-wider  text-green-500 border-green-500 border-2 hover:bg-green-500 hover:text-white transition ease-out duration-700">Home</a>
                     @else
-                        <a href="{{ route('login') }}" class="rounded-full py-3 px-4 uppercase text-xs font-bold cursor-pointer tracking-wider text-pink-500 border-pink-500 border-2 hover:bg-pink-500 hover:text-white transition ease-out duration-700">Iniciar Sesión</a>
+                        <a href="{{ route('login') }}" class="rounded-full py-3 px-5 uppercase text-xs font-bold cursor-pointer tracking-wider  text-green-500 border-green-500 border-2 hover:bg-green-500 hover:text-white transition ease-out duration-700">Iniciar Sesión</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="rounded-full py-3 px-4 uppercase text-xs font-bold cursor-pointer tracking-wider text-pink-500 border-pink-500 border-2 hover:bg-pink-500 hover:text-white transition ease-out duration-700">Registrarse</a>
+                            <a href="{{ route('register') }}" class="rounded-full py-3 px-5 uppercase text-xs font-bold cursor-pointer tracking-wider text-green-500 border-green-500 border-2 hover:bg-green-500 hover:text-white transition ease-out duration-700">Registrarse</a>
                         @endif
                     @endauth
                 </div>
