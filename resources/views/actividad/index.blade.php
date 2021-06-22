@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container">
-        <h2>Actividades</h2>
+        <h2 class="text-center">Actividades</h2>
         @if($errors->any())
             <div class="alert alert-warning" role="alert">
                @foreach ($errors->all() as $error)
@@ -30,7 +30,7 @@
                         </div>
                         <div class="col-auto my-1">
                             <form action="{{route('actividad.index')}}" method="get">
-                                <select class="form-select form-select-lg mb-3 my-2 ml-5" name="order">
+                                <select class="form-control form-select-lg mb-3 ml-2" name="order">
                                     <option selected value="1">Seleccione el campo</option>
                                     <option value="1">ID</option>
                                     <option value="2">Nombre</option>
@@ -38,7 +38,7 @@
                                 </select>
                             </div>
                             <div class="col-auto my-1">
-                                <input type="submit" class="btn btn-primary mr-5" value="Ordenar">
+                                <input type="submit" class="btn btn-primary mr-5 ml-2" value="Ordenar">
                             </div>
                             </form>
                             

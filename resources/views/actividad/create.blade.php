@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container">   
-        <h2>Insertar actividad</h2>
+        <h2 class="text-center">Insertar actividad</h2>
         @if($errors->any())
             <div class="alert alert-warning" role="alert">
                @foreach ($errors->all() as $error)

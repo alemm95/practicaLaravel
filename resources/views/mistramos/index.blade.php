@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container">
-        <h2>Horario</h2>
+        <h2 class="text-center">Mis clases</h2>
         <div class="inline-block mr-2 mt-2">
             
             <div class="col-xl-12">

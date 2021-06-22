@@ -7,7 +7,7 @@
 
 
     <!-- {{Session::flash('','')}} -->
-        <h2>Gestión de Usuarios</h2>
+        <h2 class="text-center">Gestión de Usuarios</h2>
         <div class="inline-block mr-2 mt-2">
             <div class="col-lx-12">
                 <form action="{{route('user.index')}}" method="get">
@@ -20,7 +20,7 @@
                         </div>
                         <div class="col-auto my-1">
                             <form action="{{route('user.index')}}" method="get">
-                                <select class="form-select form-select-lg mb-3 my-2 ml-5" name="order">
+                                <select class="form-control form-select-lg mb-3 ml-2" name="order">
                                     <option selected value="1">Seleccione el campo</option>
                                     <option value="1">ID</option>
                                     <option value="2">Nombre</option>
@@ -30,26 +30,14 @@
                                 </select>
                             </div>
                             <div class="col-auto my-1">
-                                <input type="submit" class="btn btn-primary mr-5" value="Ordenar">
+                                <input type="submit" class="btn btn-primary mr-5 ml-2" value="Ordenar">
                             </div>
                             </form>
+                            
+                                
                             <div class="col-auto my-1">
-                                <form action="{{route('user.index')}}" method="get">
-                                <select class="form-select form-select-lg mb-3 my-2 ml-2" name="page">
-                                    <option selected value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
-                                </div>
-                                <div class="col-auto my-1">
-                                    <input type="submit" class="btn btn-primary mr-5" value="Ir a página">
-                                </div>
-                            </form>
-                            <div class="col-auto my-1">
-                            <a href="{{route('user.create')}}" class="btn btn-success">Insertar</a>
-                        </div>
+                                <a href="{{route('user.create')}}" class="btn btn-success">Insertar</a>
+                            </div>
                         </div>
                     </div>
                 </form>

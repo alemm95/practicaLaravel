@@ -81,12 +81,6 @@
                                         {{ __('Horario') }}
                                 </a>
 
-                                @if (Auth::user()->role_id == 1)
-                                    <a class="dropdown-item" href="{{ route('tramo.index') }}">
-                                            {{ __('Gestión Clases') }}
-                                    </a>
-                                @endif
-
                                 <a class="dropdown-item" href="{{ route('mistramos.index') }}">
                                         {{ __('Mis clases') }}
                                 </a>

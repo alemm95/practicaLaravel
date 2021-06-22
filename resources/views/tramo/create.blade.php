@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container">   
-        <h2>Insertar clase</h2>
+        <h2 class="text-center">Insertar clase</h2>
         @if($errors->any())
             <div class="alert alert-warning" role="alert">
                @foreach ($errors->all() as $error)
@@ -23,7 +23,7 @@
                 <form action="{{route('tramo.store')}}" method="post">
                 @csrf
                     <div class="form-group">
-                    <select class="form-select form-select-lg" name="dia">
+                    <select class="form-control form-select-lg" name="dia">
                                     <option selected value="">Seleccione el dia</option>
                                     <option value="Lunes">Lunes</option>
                                     <option value="Martes">Martes</option>
@@ -43,7 +43,7 @@
                         <input type="time" class="form-control" name="hora_fin" required>
                     </div>
                     <div class="form-group">
-                    <select class="form-select form-select-lg" name="actividad_id">
+                    <select class="form-control form-select-lg" name="actividad_id">
                                     <option selected value="">Seleccione la actividad</option>
                                     @foreach ($actividades as $actividad)
                                     <option value="{{ $actividad->id }}">{{$actividad->name}}</option>
